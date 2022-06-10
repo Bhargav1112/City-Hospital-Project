@@ -1,6 +1,21 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Header(props) {
+
+    const navClickHandler = e => {
+        const click = e.target.closest('.navbar-links')
+        console.log(click);
+        const links = document.querySelectorAll('.navbar-links')
+        if (!click) return;
+
+        links.forEach(el => {
+            el.querySelector('.nav-link').classList.remove('active')
+        })
+
+        click.querySelector('.nav-link').classList.add('active')
+    }
+
     return (
         <div className="main-header">
             <div id="topbar" className="d-flex align-items-center fixed-top">
@@ -26,12 +41,12 @@ function Header(props) {
                         </a>
                     </div>
                     <nav id="navbar" className="navbar order-last order-lg-0">
-                        <ul>
-                            <li><a className="nav-link scrollto active" href="index.html">Home</a></li>
-                            <li><a className="nav-link scrollto" href="./pages/departments.html">Departments</a></li>
-                            <li><a className="nav-link scrollto" href="./pages/doctors.html">Doctors</a></li>
-                            <li><a className="nav-link scrollto " href="./pages/about.html">About</a></li>
-                            <li><a className="nav-link scrollto" href="./pages/contact.html">Contact</a></li>
+                        <ul onClick={navClickHandler}  >
+                            <li className='navbar-links'><NavLink className="nav-link scrollto" to="/">Home</NavLink></li>
+                            <li className='navbar-links'><NavLink className="nav-link scrollto" to="/departments">Departments</NavLink></li>
+                            <li className='navbar-links'><NavLink className="nav-link scrollto" to="/doctors">Doctors</NavLink></li>
+                            <li className='navbar-links'><NavLink className="nav-link scrollto " to="/about">About</NavLink></li>
+                            <li className='navbar-links'><NavLink className="nav-link scrollto" to="/contact">Contact</NavLink></li>
                         </ul>
                         <i className="bi bi-list mobile-nav-toggle" />
                     </nav>
