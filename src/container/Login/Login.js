@@ -40,7 +40,7 @@ function Login(props) {
                                 </a>
                             </div>
                             <Button className="w-100 mb-3 btn-dark">
-                                Submit
+                                Login
                             </Button>
 
                             <div className="d-flex align-items-center gap-3 justify-content-center">
