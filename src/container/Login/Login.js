@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import { NavLink } from "react-router-dom";
 
 function Login(props) {
     return (
@@ -8,11 +7,6 @@ function Login(props) {
             <div className="row justify-content-center align-items-center">
                 <div className="col-10 col-md-6">
                     <div className="login-form rounded p-5 border border-1">
-                        <div className="heading">
-                            <h2 className="fw-bolder text-uppercase fs-3 text-center">
-                                Login
-                            </h2>
-                        </div>
                         <Form>
                             <FormGroup>
                                 <Label for="exampleEmail">Email</Label>
@@ -44,15 +38,13 @@ function Login(props) {
                             <Button className="w-100 mb-3 btn-dark">
                                 Submit
                             </Button>
-                            <p className="m-2 text-center">
-                                Dont Have an Account?{" "}
-                                <span className="text-dark">SIGN UP NOW</span>
-                            </p>
-                            <NavLink className="link" to="/signup">
-                                <Button className="w-100 btn-warning">
+
+                            <div className="d-flex align-items-center gap-3 justify-content-center">
+                                <span>Create a new Account: </span>
+                                <Button className="btn-warning" onClick={props.onSignUp}>
                                     SignUp
                                 </Button>
-                            </NavLink>
+                            </div>
                         </Form>
                     </div>
                 </div>

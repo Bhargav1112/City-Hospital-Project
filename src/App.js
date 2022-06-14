@@ -9,8 +9,7 @@ import Contact from "./container/Departments/Contact";
 import Departments from "./container/Departments/Departments";
 import Doctors from "./container/Departments/Doctors";
 import Home from "./container/Home/Home";
-import Login from "./container/Login/Login";
-import SignUp from "./container/Login/SignUp";
+import LoginPage from './container/Login/LoginPage'
 
 function App() {
     return (
@@ -24,8 +23,7 @@ function App() {
                 <Route path="/about" exact component={About} />
                 <Route path="/contact" exact component={Contact} />
                 <Route path="/apointment" exact component={Apointments} />
-                <Route path="/login" exact component={Login} />
-                <Route path="/signup" exact component={SignUp} />
+                <Route path="/login" exact component={LoginPage} />
             </Switch>
 
             <Footer />

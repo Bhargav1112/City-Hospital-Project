@@ -52,6 +52,12 @@ function SignUp(props) {
                             <Button className="w-100 mt-3 btn-warning">
                                 Register
                             </Button>
+                            <div className="d-flex align-items-center gap-3 justify-content-center">
+                                <span>Already Have an Account? </span>
+                                <Button className="mt-3 btn-dark" onClick={props.onLogin}>
+                                    Login
+                                </Button>
+                            </div>
                         </Form>
                     </div>
                 </div>
