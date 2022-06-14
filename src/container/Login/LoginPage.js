@@ -1,26 +1,44 @@
-import React, { useState } from 'react';
-import Login from './Login'
-import SingUp from './SignUp'
+import React, { useState } from "react";
+import ForgotPassword from "./ForgotPassword";
+import Login from "./Login";
+import SingUp from "./SignUp";
 
 function LoginPage(props) {
-    const [userType, setUserType] = useState('login')
+    const [userType, setUserType] = useState("login");
+    const [forgotPassword, setForgotPassword] = useState(false);
 
-    const onSignUpHandler = () => {
-        setUserType('signup')
-    }
-    const onLoginHandler = () => {
-        setUserType('login')
-    }
+    const signUpHandler = () => {
+        setUserType("signup");
+    };
+    const loginHandler = () => {
+        setUserType("login");
+        setForgotPassword(false);
+    };
+    const forgotPasswordHandler = () => {
+        setForgotPassword(true);
+    };
 
-    const formContent = userType === 'login' ? <Login onSignUp={onSignUpHandler} /> : <SingUp onLogin={onLoginHandler} />
+    const formContent =
+        userType === "login" ? (
+            <Login
+                onSignUp={signUpHandler}
+                onForgotPwd={forgotPasswordHandler}
+            />
+        ) : (
+            <SingUp onLogin={loginHandler} />
+        );
     return (
         <section>
             <div className="container">
                 <div className="section-title">
-                    <h2>Login</h2>
+                    {!forgotPassword && (
+                        <h2>{userType === "login" ? "Login" : "SignUp"}</h2>
+                    )}
+                    {forgotPassword && <h2>Forgot Password</h2>}
                 </div>
             </div>
-            {formContent}
+            {!forgotPassword && formContent}
+            {forgotPassword && <ForgotPassword onBack={loginHandler} />}
         </section>
     );
 }

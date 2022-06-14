@@ -3,7 +3,7 @@ import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 function Login(props) {
     return (
-        <div className="container my-5">
+        <div className="container">
             <div className="row justify-content-center align-items-center">
                 <div className="col-10 col-md-6">
                     <div className="login-form rounded p-5 border border-1">
@@ -31,7 +31,11 @@ function Login(props) {
                                     <Input type="checkbox" />{" "}
                                     <Label check>Remember Me</Label>
                                 </FormGroup>
-                                <a href="#" className="link">
+                                <a
+                                    href="#"
+                                    className="link"
+                                    onClick={props.onForgotPwd}
+                                >
                                     Forgot password?
                                 </a>
                             </div>
@@ -41,7 +45,10 @@ function Login(props) {
 
                             <div className="d-flex align-items-center gap-3 justify-content-center">
                                 <span>Create a new Account: </span>
-                                <Button className="btn-warning" onClick={props.onSignUp}>
+                                <Button
+                                    className="btn-warning"
+                                    onClick={props.onSignUp}
+                                >
                                     SignUp
                                 </Button>
                             </div>
