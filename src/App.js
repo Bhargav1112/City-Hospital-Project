@@ -10,6 +10,7 @@ import Departments from "./container/Departments/Departments";
 import Doctors from "./container/Departments/Doctors";
 import Home from "./container/Home/Home";
 import LoginPage from './container/Login/LoginPage'
+import Medicines from "./container/Medicines/Medicines";
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/contact" exact component={Contact} />
                 <Route path="/apointment" exact component={Apointments} />
                 <Route path="/login" exact component={LoginPage} />
+                <Route path="/medicine" exact component={Medicines} />
             </Switch>
 
             <Footer />

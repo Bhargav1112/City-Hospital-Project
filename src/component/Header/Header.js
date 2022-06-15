@@ -85,6 +85,14 @@ function Header(props) {
                             </li>
                             <li className="navbar-links">
                                 <NavLink
+                                    className="nav-link scrollto "
+                                    to="/medicine"
+                                >
+                                    Medicines
+                                </NavLink>
+                            </li>
+                            <li className="navbar-links">
+                                <NavLink
                                     className="nav-link scrollto"
                                     to="/contact"
                                 >
