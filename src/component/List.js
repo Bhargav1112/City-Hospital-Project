@@ -20,7 +20,7 @@ function List(props) {
                             <CardText>
                                 {med.expiry}
                             </CardText>
-                            <Button onClick={() => props.onButton(med.id)}>
+                            <Button onClick={props.onButton.bind(null, med.id)}>
                                 Button
                             </Button>
                         </CardBody>

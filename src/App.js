@@ -11,6 +11,7 @@ import Doctors from "./container/Departments/Doctors";
 import Home from "./container/Home/Home";
 import LoginPage from './container/Login/LoginPage'
 import Medicines from "./container/Medicines/Medicines";
+import RefEx from "./container/RefEx";
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/apointment" exact component={Apointments} />
                 <Route path="/login" exact component={LoginPage} />
                 <Route path="/medicine" exact component={Medicines} />
+                <Route path="/ref" exact component={RefEx} />
             </Switch>
 
             <Footer />
