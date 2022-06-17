@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as yup from 'yup';
+import * as yup from "yup";
 
 import ForgotPassword from "./ForgotPassword";
 import Login from "./Login";
@@ -21,19 +21,37 @@ function LoginPage(props) {
     };
 
     const loginSchema = {
-        email: yup.string().email('Please enter valid Email.').required('Required!'),
-        password: yup.string().min(4, 'Password should have minimum 4 characters').max(8, 'Password should have maximum 8 characters').required('Required!')
-    }
+        email: yup
+            .string()
+            .email("Please enter valid Email.")
+            .required("Required!"),
+        password: yup
+            .string()
+            .min(4, "Password should have minimum 4 characters")
+            .max(8, "Password should have maximum 8 characters")
+            .required("Required!"),
+    };
 
-    // const signUpSchema = {
-    //     name: yup.string().max(15).required('Required!'),
-    //     email: yup.string().email('Please enter valid Email.').required('Required!'),
-    //     password: yup.string().min(4, 'Password should have minimum 4 characters').max(8, 'Password should have maximum 8 characters').required('Required!'),
-    //     confirmPassword: yup.string().oneOf(yup.ref('password')).required('Required!')
-    // }
+    const signUpSchema = {
+        name: yup.string().max(15).required("Required!"),
+        email: yup
+            .string()
+            .email("Please enter valid Email.")
+            .required("Required!"),
+        password: yup
+            .string()
+            .min(4, "Password should have minimum 4 characters")
+            .max(8, "Password should have maximum 8 characters")
+            .required("Required!"),
+        confirmPassword: yup
+            .string()
+            .oneOf([yup.ref("password"), null], "password must be match.")
+            .required("Required!"),
+    };
 
-    // const schema = yup.object().shape(userType === 'login' ? loginSchema : signUpSchema)
-    const schema = yup.object().shape(loginSchema)
+    const schema = yup
+        .object()
+        .shape(userType === "login" ? loginSchema : signUpSchema);
 
     const formContent =
         userType === "login" ? (
@@ -43,7 +61,7 @@ function LoginPage(props) {
                 schema={schema}
             />
         ) : (
-            <SingUp onLogin={loginHandler} />
+            <SingUp onLogin={loginHandler} schema={schema} />
         );
     return (
         <section>

@@ -1,20 +1,22 @@
 import React from "react";
 import { FormGroup, Label, Input, Button } from "reactstrap";
-import { useFormik, Form, Formik } from 'formik';
+import { useFormik, Form, Formik } from "formik";
 
 function Login(props) {
     const formik = useFormik({
         initialValues: {
-            email: '',
-            password: ''
+            email: "",
+            password: "",
         },
         validationSchema: props.schema,
-        onSubmit: values => {
+        onSubmit: (values, actions) => {
             alert(JSON.stringify(values, null, 2));
+            actions.resetForm();
         },
     });
 
-    const { handleBlur, handleChange, errors, handleSubmit } = formik
+    const { handleBlur, handleChange, errors, handleSubmit, touched, values } =
+        formik;
 
     return (
         <div className="container">
@@ -26,6 +28,7 @@ function Login(props) {
                                 <FormGroup>
                                     <Label for="email">Email</Label>
                                     <Input
+                                        value={values.email}
                                         id="email"
                                         name="email"
                                         placeholder="abc@abc.com"
@@ -33,11 +36,16 @@ function Login(props) {
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                     />
-                                    {errors.email && <p>{errors.email}</p>}
+                                    {errors.email && touched.email && (
+                                        <p className="text-danger">
+                                            {errors.email}
+                                        </p>
+                                    )}
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="Password">Password</Label>
                                     <Input
+                                        value={values.password}
                                         id="Password"
                                         name="password"
                                         placeholder="password"
@@ -45,7 +53,11 @@ function Login(props) {
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                     />
-                                    {errors.password && <p>{errors.password}</p>}
+                                    {errors.password && touched.password && (
+                                        <p className="text-danger">
+                                            {errors.password}
+                                        </p>
+                                    )}
                                 </FormGroup>
                                 <div className="mb-3 d-flex justify-content-between">
                                     <FormGroup check>
@@ -60,7 +72,10 @@ function Login(props) {
                                         Forgot password?
                                     </a>
                                 </div>
-                                <Button className="w-100 mb-3 btn-dark" type="submit">
+                                <Button
+                                    className="w-100 mb-3 btn-dark"
+                                    type="submit"
+                                >
                                     Login
                                 </Button>
 
