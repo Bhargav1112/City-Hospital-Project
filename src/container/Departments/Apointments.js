@@ -1,6 +1,34 @@
 import React from "react";
+import * as yup from 'yup';
+import { useFormik } from 'formik'
 
 function Apointments(props) {
+
+    const schema = yup.object().shape({
+        name: yup.string().required('Required'),
+        email: yup.string().email('Please Enter Valid Email.').required('Required'),
+        phone: yup.number().required('Required'),
+        date: yup.string().required('Required'),
+        select: yup.string().required('Required'),
+        message: yup.string().max(50, 'Maximum 50 charecters allowed').required('Required')
+    })
+
+    const { handleBlur, handleChange, handleSubmit, values, touched, errors } = useFormik({
+        initialValues: {
+            name: '',
+            email: '',
+            phone: '',
+            date: '',
+            select: '',
+            message: ''
+        },
+        validationSchema: schema,
+        onSubmit: (values, action) => {
+            alert(JSON.stringify(values))
+            action.resetForm()
+        }
+    })
+
     return (
         <main id="make_appointment">
             <section id="appointment" className="appointment">
@@ -17,10 +45,10 @@ function Apointments(props) {
                         </p>
                     </div>
                     <form
-                        action
                         method="post"
                         role="form"
                         className="php-email-form"
+                        onSubmit={handleSubmit}
                     >
                         <div className="row">
                             <div className="col-md-4 form-group">
@@ -30,10 +58,11 @@ function Apointments(props) {
                                     className="form-control"
                                     id="name"
                                     placeholder="Your Name"
-                                    data-rule="minlen:4"
-                                    data-msg="Please enter at least 4 chars"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.name}
                                 />
-                                <div className="validate" />
+                                {errors.name && touched.name && <p className="text-danger">{errors.name}</p>}
                             </div>
                             <div className="col-md-4 form-group mt-3 mt-md-0">
                                 <input
@@ -42,10 +71,11 @@ function Apointments(props) {
                                     name="email"
                                     id="email"
                                     placeholder="Your Email"
-                                    data-rule="email"
-                                    data-msg="Please enter a valid email"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.email}
                                 />
-                                <div className="validate" />
+                                {errors.email && touched.email && <p className="text-danger">{errors.email}</p>}
                             </div>
                             <div className="col-md-4 form-group mt-3 mt-md-0">
                                 <input
@@ -54,32 +84,37 @@ function Apointments(props) {
                                     name="phone"
                                     id="phone"
                                     placeholder="Your Phone"
-                                    data-rule="minlen:4"
-                                    data-msg="Please enter at least 4 chars"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.phone}
                                 />
-                                <div className="validate" />
+                                {errors.phone && touched.phone && <p className="text-danger">{errors.phone}</p>}
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-4 form-group mt-3">
                                 <input
-                                    type="datetime"
+                                    type="date"
                                     name="date"
                                     className="form-control datepicker"
                                     id="date"
                                     placeholder="Appointment Date"
-                                    data-rule="minlen:4"
-                                    data-msg="Please enter at least 4 chars"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.date}
                                 />
-                                <div className="validate" />
+                                {errors.date && touched.date && <p className="text-danger">{errors.date}</p>}
                             </div>
                             <div className="col-md-4 form-group mt-3">
                                 <select
-                                    name="department"
+                                    name="select"
                                     id="department"
                                     className="form-select"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.select}
                                 >
-                                    <option value>Select Department</option>
+                                    <option value=''>Select Department</option>
                                     <option value="Department 1">
                                         Department 1
                                     </option>
@@ -90,7 +125,7 @@ function Apointments(props) {
                                         Department 3
                                     </option>
                                 </select>
-                                <div className="validate" />
+                                {errors.select && touched.select && <p className="text-danger">{errors.select}</p>}
                             </div>
                         </div>
                         <div className="form-group mt-3">
@@ -100,8 +135,11 @@ function Apointments(props) {
                                 rows={5}
                                 placeholder="Message (Optional)"
                                 defaultValue={""}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.message}
                             />
-                            <div className="validate" />
+                            {errors.message && touched.message && <p className="text-danger">{errors.message}</p>}
                         </div>
                         <div className="mb-3">
                             <div className="loading">Loading</div>

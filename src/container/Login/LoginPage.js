@@ -18,40 +18,52 @@ function LoginPage(props) {
     };
     const forgotPasswordHandler = () => {
         setForgotPassword(true);
+        setUserType('forgotPassword')
     };
 
-    const loginSchema = {
-        email: yup
-            .string()
-            .email("Please enter valid Email.")
-            .required("Required!"),
-        password: yup
-            .string()
-            .min(4, "Password should have minimum 4 characters")
-            .max(8, "Password should have maximum 8 characters")
-            .required("Required!"),
-    };
+    let schemaObj;
 
-    const signUpSchema = {
-        name: yup.string().max(15).required("Required!"),
-        email: yup
-            .string()
-            .email("Please enter valid Email.")
-            .required("Required!"),
-        password: yup
-            .string()
-            .min(4, "Password should have minimum 4 characters")
-            .max(8, "Password should have maximum 8 characters")
-            .required("Required!"),
-        confirmPassword: yup
-            .string()
-            .oneOf([yup.ref("password"), null], "password must be match.")
-            .required("Required!"),
-    };
+    if (userType === 'login') {
+        schemaObj = {
+            email: yup
+                .string()
+                .email("Please enter valid Email.")
+                .required("Required!"),
+            password: yup
+                .string()
+                .min(4, "Password should have minimum 4 characters")
+                .max(8, "Password should have maximum 8 characters")
+                .required("Required!"),
+        };
+    } else if (userType === 'signup') {
+        schemaObj = {
+            name: yup.string().max(15).required("Required!"),
+            email: yup
+                .string()
+                .email("Please enter valid Email.")
+                .required("Required!"),
+            password: yup
+                .string()
+                .min(4, "Password should have minimum 4 characters")
+                .max(8, "Password should have maximum 8 characters")
+                .required("Required!"),
+            confirmPassword: yup
+                .string()
+                .oneOf([yup.ref("password"), null], "password must be match.")
+                .required("Required!"),
+        };
+    } else {
+        schemaObj = {
+            email: yup
+                .string()
+                .email("Please enter valid Email.")
+                .required("Required!"),
+        }
+    }
 
     const schema = yup
         .object()
-        .shape(userType === "login" ? loginSchema : signUpSchema);
+        .shape(schemaObj);
 
     const formContent =
         userType === "login" ? (
@@ -74,7 +86,7 @@ function LoginPage(props) {
                 </div>
             </div>
             {!forgotPassword && formContent}
-            {forgotPassword && <ForgotPassword onBack={loginHandler} />}
+            {forgotPassword && <ForgotPassword schema={schema} onBack={loginHandler} />}
         </section>
     );
 }
