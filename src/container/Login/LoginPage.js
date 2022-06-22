@@ -7,17 +7,17 @@ import SingUp from "./SignUp";
 
 function LoginPage(props) {
     const [userType, setUserType] = useState("login");
-    const [forgotPassword, setForgotPassword] = useState(false);
+    // const [forgotPassword, setForgotPassword] = useState(false);
 
     const signUpHandler = () => {
         setUserType("signup");
     };
     const loginHandler = () => {
         setUserType("login");
-        setForgotPassword(false);
+        // setForgotPassword(false);
     };
     const forgotPasswordHandler = () => {
-        setForgotPassword(true);
+        // setForgotPassword(true);
         setUserType("forgotPassword");
     };
 
@@ -75,17 +75,31 @@ function LoginPage(props) {
         <section>
             <div className="container">
                 <div className="section-title">
-                    {!forgotPassword && (
+                    {userType !== "forgotPassword" && (
                         <h2>{userType === "login" ? "Login" : "SignUp"}</h2>
                     )}
-                    {forgotPassword && <h2>Forgot Password</h2>}
+                    {userType === "forgotPassword" && <h2>Forgot Password</h2>}
                 </div>
             </div>
-            {!forgotPassword && formContent}
-            {forgotPassword && (
+            {userType !== "forgotPassword" && formContent}
+            {userType === "forgotPassword" && (
                 <ForgotPassword schema={schema} onBack={loginHandler} />
             )}
         </section>
+        // <section>
+        //     <div className="container">
+        //         <div className="section-title">
+        //             {!forgotPassword && (
+        //                 <h2>{userType === "login" ? "Login" : "SignUp"}</h2>
+        //             )}
+        //             {forgotPassword && <h2>Forgot Password</h2>}
+        //         </div>
+        //     </div>
+        //     {!forgotPassword && formContent}
+        //     {forgotPassword && (
+        //         <ForgotPassword schema={schema} onBack={loginHandler} />
+        //     )}
+        // </section>
     );
 }
 
