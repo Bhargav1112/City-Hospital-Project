@@ -10,11 +10,14 @@ function Login(props) {
     const existingUserIndex = storageData.findIndex(
       (user) => user.email === data.email && user.password === data.password
     );
+    console.log(existingUserIndex);
     const existingUser = storageData[existingUserIndex];
+    console.log(existingUser);
 
     if (!existingUser) {
       // failure state
       setLoggedIn(false);
+      return;
     }
     // success state
     setLoggedIn(true);
