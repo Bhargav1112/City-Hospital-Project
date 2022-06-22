@@ -8,6 +8,10 @@ function Login(props) {
 
     const userLoginHandler = (data) => {
         const storageData = JSON.parse(localStorage.getItem("user"));
+        if (!storageData) {
+            setLoginError("User not found.");
+            return;
+        }
         const existingUserIndex = storageData.findIndex((user) => {
             return user.email === data.email && user.password === data.password;
         });
@@ -61,6 +65,7 @@ function Login(props) {
                                 style={{
                                     color: "red",
                                     margin: 0,
+                                    textAlign: "center",
                                 }}
                             >
                                 {loginError}
