@@ -2,18 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 function Header(props) {
-    const navClickHandler = (e) => {
-        const click = e.target.closest(".navbar-links");
-        const links = document.querySelectorAll(".navbar-links");
-        if (!click) return;
-
-        links.forEach((el) => {
-            el.querySelector(".nav-link").classList.remove("active");
-        });
-
-        click.querySelector(".nav-link").classList.add("active");
-    };
-
     return (
         <div className="main-header">
             <div id="topbar" className="d-flex align-items-center fixed-top">
@@ -53,14 +41,19 @@ function Header(props) {
                         </a>
                     </div>
                     <nav id="navbar" className="navbar order-last order-lg-0">
-                        <ul onClick={navClickHandler}>
+                        <ul>
                             <li className="navbar-links">
-                                <NavLink className="nav-link scrollto" to="/">
+                                <NavLink
+                                    activeClassName="active"
+                                    className="nav-link scrollto"
+                                    to="/"
+                                >
                                     Home
                                 </NavLink>
                             </li>
                             <li className="navbar-links">
                                 <NavLink
+                                    activeClassName="active"
                                     className="nav-link scrollto"
                                     to="/departments"
                                 >
@@ -69,6 +62,7 @@ function Header(props) {
                             </li>
                             <li className="navbar-links">
                                 <NavLink
+                                    activeClassName="active"
                                     className="nav-link scrollto"
                                     to="/doctors"
                                 >
@@ -77,6 +71,7 @@ function Header(props) {
                             </li>
                             <li className="navbar-links">
                                 <NavLink
+                                    activeClassName="active"
                                     className="nav-link scrollto "
                                     to="/about"
                                 >
@@ -85,6 +80,7 @@ function Header(props) {
                             </li>
                             <li className="navbar-links">
                                 <NavLink
+                                    activeClassName="active"
                                     className="nav-link scrollto "
                                     to="/medicine"
                                 >
@@ -93,6 +89,7 @@ function Header(props) {
                             </li>
                             <li className="navbar-links">
                                 <NavLink
+                                    activeClassName="active"
                                     className="nav-link scrollto"
                                     to="/contact"
                                 >
