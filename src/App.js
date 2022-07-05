@@ -9,7 +9,7 @@ import Contact from "./container/Departments/Contact";
 import Departments from "./container/Departments/Departments";
 import Doctors from "./container/Departments/Doctors";
 import Home from "./container/Home/Home";
-import LoginPage from './container/Login/LoginPage'
+import LoginPage from "./container/Login/LoginPage";
 import Medicines from "./container/Medicines/Medicines";
 import RefEx from "./container/RefEx";
 
@@ -24,7 +24,7 @@ function App() {
                 <Route path="/doctors" exact component={Doctors} />
                 <Route path="/about" exact component={About} />
                 <Route path="/contact" exact component={Contact} />
-                <Route path="/apointment" exact component={Apointments} />
+                <Route path="/apointment" component={Apointments} />
                 <Route path="/login" exact component={LoginPage} />
                 <Route path="/medicine" exact component={Medicines} />
                 <Route path="/ref" exact component={RefEx} />
