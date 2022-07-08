@@ -16,7 +16,6 @@ function BookApointment(props) {
     } else {
       formik.resetForm();
     }
-    // history.replace();
     props.onData(formik);
   }, []);
 
@@ -44,8 +43,8 @@ function BookApointment(props) {
     );
     localData[existingDataIndex] = { ...values };
     localStorage.setItem("apt", JSON.stringify(localData));
+    history.replace("/apointment/list");
     formik.resetForm();
-    history.push("/apointment/list");
   };
 
   const schema = yup.object().shape({
