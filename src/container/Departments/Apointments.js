@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Route, useHistory } from "react-router-dom";
+import { NavLink, Route } from "react-router-dom";
 import BookApointment from "../Apointment/BookApointment";
 import ListApointment from "../Apointment/ListApointment";
 
@@ -10,7 +10,7 @@ function Apointments(props) {
   };
 
   const resetFormHandler = () => {
-    formikObj.resetForm();
+    formikObj?.resetForm();
   };
 
   return (

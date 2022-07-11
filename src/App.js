@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-import { Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import Footer from "./component/Header/Footer";
 import Header from "./component/Header/Header";
@@ -12,27 +11,39 @@ import Home from "./container/Home/Home";
 import LoginPage from "./container/Login/LoginPage";
 import Medicines from "./container/Medicines/Medicines";
 import RefEx from "./container/RefEx";
+import PrivateRoute from "./routes/PrivateRoute";
+import PublicRoute from "./routes/PublicRoute";
 
 function App() {
-    return (
-        <Fragment>
-            <Header />
+  return (
+    <Fragment>
+      <Header />
 
-            <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/departments" exact component={Departments} />
-                <Route path="/doctors" exact component={Doctors} />
-                <Route path="/about" exact component={About} />
-                <Route path="/contact" exact component={Contact} />
-                <Route path="/apointment" component={Apointments} />
-                <Route path="/login" exact component={LoginPage} />
-                <Route path="/medicine" exact component={Medicines} />
-                <Route path="/ref" exact component={RefEx} />
-            </Switch>
+      <Switch>
+        <PublicRoute path="/" exact component={Home} />
+        <PublicRoute path="/departments" exact component={Departments} />
+        <PublicRoute path="/doctors" exact component={Doctors} />
+        <PublicRoute path="/about" exact component={About} />
+        <PublicRoute path="/contact" exact component={Contact} />
+        <PrivateRoute path="/apointment" component={Apointments} />
+        <PublicRoute
+          path="/login"
+          restricted={true}
+          exact
+          component={LoginPage}
+        />
+        <PublicRoute
+          path="/medicine"
+          data={"hello"}
+          exact
+          component={Medicines}
+        />
+        <PublicRoute path="/ref" exact component={RefEx} />
+      </Switch>
 
-            <Footer />
-        </Fragment>
-    );
+      <Footer />
+    </Fragment>
+  );
 }
 
 export default App;
