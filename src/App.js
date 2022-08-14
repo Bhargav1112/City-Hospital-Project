@@ -11,39 +11,45 @@ import Home from "./container/Home/Home";
 import LoginPage from "./container/Login/LoginPage";
 import Medicines from "./container/Medicines/Medicines";
 import RefEx from "./container/RefEx";
+import ThemeProvider from "./context/ThemeProvider";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
 
 function App() {
-  return (
-    <Fragment>
-      <Header />
+    return (
+        <Fragment>
+            <ThemeProvider>
+                <Header />
+                <Switch>
+                    <PublicRoute path="/" exact component={Home} />
+                    <PublicRoute
+                        path="/departments"
+                        exact
+                        component={Departments}
+                    />
+                    <PublicRoute path="/doctors" exact component={Doctors} />
+                    <PublicRoute path="/about" exact component={About} />
+                    <PublicRoute path="/contact" exact component={Contact} />
+                    <PrivateRoute path="/apointment" component={Apointments} />
+                    <PublicRoute
+                        path="/login"
+                        restricted={true}
+                        exact
+                        component={LoginPage}
+                    />
+                    <PublicRoute
+                        path="/medicine"
+                        data={"hello"}
+                        exact
+                        component={Medicines}
+                    />
+                    <PublicRoute path="/ref" exact component={RefEx} />
+                </Switch>
 
-      <Switch>
-        <PublicRoute path="/" exact component={Home} />
-        <PublicRoute path="/departments" exact component={Departments} />
-        <PublicRoute path="/doctors" exact component={Doctors} />
-        <PublicRoute path="/about" exact component={About} />
-        <PublicRoute path="/contact" exact component={Contact} />
-        <PrivateRoute path="/apointment" component={Apointments} />
-        <PublicRoute
-          path="/login"
-          restricted={true}
-          exact
-          component={LoginPage}
-        />
-        <PublicRoute
-          path="/medicine"
-          data={"hello"}
-          exact
-          component={Medicines}
-        />
-        <PublicRoute path="/ref" exact component={RefEx} />
-      </Switch>
-
-      <Footer />
-    </Fragment>
-  );
+                <Footer />
+            </ThemeProvider>
+        </Fragment>
+    );
 }
 
 export default App;
