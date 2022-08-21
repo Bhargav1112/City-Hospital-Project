@@ -38,8 +38,8 @@ function Header(props) {
                     </div>
                 </div>
             </div>
-            <header id="header" className={`fixed-top ${themeCtx.theme}`}>
-                <div className="container d-flex align-items-center">
+            <header id="header" className={`fixed-top `}>
+                <div className={`container d-flex align-items-center ${themeCtx.theme}`}>
                     <div className="logo">
                         <a href="index.html">
                             <h1 className="logo me-auto">City</h1>

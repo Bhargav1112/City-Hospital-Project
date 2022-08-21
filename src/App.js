@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { Provider } from "react-redux";
 import { Switch } from "react-router-dom";
 import Footer from "./component/Header/Footer";
 import Header from "./component/Header/Header";
@@ -12,12 +13,13 @@ import LoginPage from "./container/Login/LoginPage";
 import Medicines from "./container/Medicines/Medicines";
 import RefEx from "./container/RefEx";
 import ThemeProvider from "./context/ThemeProvider";
+import store from "./redux/store";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
 
 function App() {
     return (
-        <Fragment>
+        <Provider store={store}>
             <ThemeProvider>
                 <Header />
                 <Switch>
@@ -48,7 +50,7 @@ function App() {
 
                 <Footer />
             </ThemeProvider>
-        </Fragment>
+        </Provider>
     );
 }
 
