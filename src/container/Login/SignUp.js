@@ -1,8 +1,12 @@
 import React from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useFormik, Formik } from "formik";
+import {useSelector, useDispatch} from 'react-redux'
+import { signupAction } from "../../redux/action/authAction";
 
 function SignUp(props) {
+    const dispatch = useDispatch()
+
     const storeDataOnLocalStorage = (data) => {
         const localStorageData = JSON.parse(localStorage.getItem("user"));
         if (!localStorageData) {
@@ -10,6 +14,7 @@ function SignUp(props) {
         }
         localStorageData.push(data);
         localStorage.setItem("user", JSON.stringify(localStorageData));
+        dispatch(signupAction(data))
     };
 
     const formik = useFormik({
@@ -23,6 +28,7 @@ function SignUp(props) {
         onSubmit: (values, actions) => {
             actions.resetForm();
             storeDataOnLocalStorage(values);
+
         },
     });
     const { handleBlur, handleChange, errors, handleSubmit, touched, values } =
