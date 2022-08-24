@@ -1,11 +1,13 @@
 import React from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useFormik, Formik } from "formik";
-import {useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { signupAction } from "../../redux/action/authAction";
 
 function SignUp(props) {
     const dispatch = useDispatch()
+    const user = useSelector(state => state.auth)
+    console.log(user);
 
     const storeDataOnLocalStorage = (data) => {
         const localStorageData = JSON.parse(localStorage.getItem("user"));

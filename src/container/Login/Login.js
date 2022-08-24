@@ -1,32 +1,36 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import { signinAction } from "../../redux/action/authAction";
 
 function Login(props) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loginError, setLoginError] = useState(null);
+  const dispatch = useDispatch()
 
   const userLoginHandler = (data) => {
-    const storageData = JSON.parse(localStorage.getItem("user"));
+    // const storageData = JSON.parse(localStorage.getItem("user"));
 
-    if (!storageData) {
-      setLoginError("User not found.");
-      return;
-    }
-    const existingUserIndex = storageData.findIndex((user) => {
-      return user.email === data.email && user.password === data.password;
-    });
-    const existingUser = storageData[existingUserIndex];
+    // if (!storageData) {
+    //   setLoginError("User not found.");
+    //   return;
+    // }
+    // const existingUserIndex = storageData.findIndex((user) => {
+    //   return user.email === data.email && user.password === data.password;
+    // });
+    // const existingUser = storageData[existingUserIndex];
 
-    if (!existingUser) {
-      // failure state
-      setLoggedIn(false);
-      setLoginError("Invalid Email or Password");
-      return;
-    }
-    // success state
-    setLoggedIn(true);
-    localStorage.setItem("isLoggedin", "1");
+    // if (!existingUser) {
+    //   // failure state
+    //   setLoggedIn(false);
+    //   setLoginError("Invalid Email or Password");
+    //   return;
+    // }
+    // // success state
+    // setLoggedIn(true);
+    // localStorage.setItem("isLoggedin", "1");
+    dispatch(signinAction(data))
   };
 
   const formik = useFormik({
