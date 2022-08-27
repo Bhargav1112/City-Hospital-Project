@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 
 
@@ -38,7 +38,18 @@ export const signinApi = (data) => {
 			.catch((error) => {
 				const errorCode = error.code;
 				const errorMessage = error.message;
-				console.log(errorCode);
+				console.log(errorCode, errorMessage);
+				if (errorCode.localeCompare('auth/wrong-password')) {
+					reject({ payload: 'Email or Password wrong, please try again.' })
+				} else {
+					reject({ payload: 'Email or Password wrong, please try again.' })
+				}
 			});
+	})
+}
+
+export const signOutApi = () => {
+	return new Promise((resolve, reject) => {
+		signOut(auth).then(res => console.log(res))
 	})
 }

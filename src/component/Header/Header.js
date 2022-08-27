@@ -2,17 +2,26 @@ import React from "react";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeProvider";
+import { useDispatch } from 'react-redux'
+import Alert from "../alert/Alert";
+import { signoutAction } from "../../redux/action/authAction";
 
 function Header(props) {
     const themeCtx = useContext(ThemeContext);
+
+    const dispatch = useDispatch()
 
     const handleThemeToggle = () => {
         themeCtx.toggleTheme(themeCtx.theme);
     };
 
+    const logoutHandler = () => {
+        dispatch(signoutAction())
+    }
     console.log(themeCtx);
     return (
         <div className={`main-header`}>
+            <Alert />
             <div id="topbar" className="d-flex align-items-center fixed-top">
                 <div className="container d-flex justify-content-between">
                     <div className="contact-info d-flex align-items-center">
@@ -120,9 +129,10 @@ function Header(props) {
                             Login/ Signup
                         </span>
                     </NavLink>
-                    <button className="theme" onClick={handleThemeToggle}>
+                    <button className="theme appointment-btn scrollto" onClick={handleThemeToggle}>
                         Toggle theme
                     </button>
+                    <button className="appointment-btn scrollto" onClick={logoutHandler}>Logout</button>
                 </div>
             </header>
         </div>
