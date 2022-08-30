@@ -1,13 +1,14 @@
 import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../firebase";
+import { history } from './history'
 
 
 export const signupApi = (data) => {
+
 	return new Promise((resolve, reject) => {
 		createUserWithEmailAndPassword(auth, data.email, data.password)
 			.then((userCredential) => {
 				const user = userCredential.user;
-				console.log(user);
 				sendEmailVerification(auth.currentUser).then(() => resolve({ payload: 'please check your email to verify.' }))
 			})
 			.catch((error) => {
@@ -28,9 +29,9 @@ export const signinApi = (data) => {
 		signInWithEmailAndPassword(auth, data.email, data.password)
 			.then((userCredential) => {
 				const user = userCredential.user;
-				console.log(user);
 				if (user.emailVerified) {
-					resolve({ payload: 'Successfully loggedin.' })
+					resolve(user)
+					history.push('/')
 				} else {
 					reject({ payload: 'Please verify your email first.' })
 				}
@@ -50,6 +51,9 @@ export const signinApi = (data) => {
 
 export const signOutApi = () => {
 	return new Promise((resolve, reject) => {
-		signOut(auth).then(res => console.log(res))
+		signOut(auth).then(() => {
+			resolve({ payload: 'Loggedout successfully.' })
+			history.push('/')
+		}).catch(error => reject({ payload: error.code }))
 	})
 }

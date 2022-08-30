@@ -2,6 +2,7 @@ import * as Types from '../action/actionType'
 import { call, put, all, takeEvery } from 'redux-saga/effects'
 import { signinApi, signOutApi, signupApi } from '../../common/api/authAPI'
 import { setAlert } from '../action/alertActions'
+import { signedinAction, signedoutAction } from '../action/authAction'
 
 async function* Signup(action) {
 	try {
@@ -15,7 +16,8 @@ async function* Signup(action) {
 function* Signin(action) {
 	try {
 		const res = yield call(signinApi, action.payload)
-		yield put(setAlert({ text: res.payload, color: 'success' }))
+		yield put(signedinAction(res))
+		yield put(setAlert({ text: 'Successfully loggedin.', color: 'success' }))
 	} catch (error) {
 		yield put(setAlert({ text: error.payload, color: 'error' }))
 	}
@@ -24,9 +26,10 @@ function* Signin(action) {
 function* signout(action) {
 	try {
 		const res = yield call(signOutApi)
-		console.log(res);
+		yield put(signedoutAction())
+		yield put(setAlert({ text: res.payload, color: 'success' }))
 	} catch (error) {
-		console.log(error);
+		yield put(setAlert({ text: error.payload, color: 'error' }))
 	}
 }
 

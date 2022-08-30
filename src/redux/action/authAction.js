@@ -11,8 +11,20 @@ export const signinAction = (data) => {
     }
 }
 
+export const signedinAction = (data) => {
+    return dispatch => {
+        dispatch({ type: Types.SIGNED_IN, payload: data })
+    }
+}
+
 export const signoutAction = () => {
     return dispatch => {
         dispatch({ type: Types.SIGN_OUT })
+    }
+}
+
+export const signedoutAction = () => {
+    return dispatch => {
+        dispatch({ type: Types.SIGNED_OUT })
     }
 }

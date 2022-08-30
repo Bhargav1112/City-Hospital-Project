@@ -13,46 +13,50 @@ import LoginPage from "./container/Login/LoginPage";
 import Medicines from "./container/Medicines/Medicines";
 import RefEx from "./container/RefEx";
 import ThemeProvider from "./context/ThemeProvider";
-import store from "./redux/store";
+import store, { persistor } from "./redux/store";
 import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
 import { SnackbarProvider } from 'notistack';
+import { PersistGate } from 'redux-persist/integration/react'
 
 
 function App() {
     return (
         <SnackbarProvider maxSnack={5}>
             <Provider store={store}>
-                <ThemeProvider>
-                    <Header />
-                    <Switch>
-                        <PublicRoute path="/" exact component={Home} />
-                        <PublicRoute
-                            path="/departments"
-                            exact
-                            component={Departments}
-                        />
-                        <PublicRoute path="/doctors" exact component={Doctors} />
-                        <PublicRoute path="/about" exact component={About} />
-                        <PublicRoute path="/contact" exact component={Contact} />
-                        <PrivateRoute path="/apointment" component={Apointments} />
-                        <PublicRoute
-                            path="/login"
-                            restricted={true}
-                            exact
-                            component={LoginPage}
-                        />
-                        <PublicRoute
-                            path="/medicine"
-                            data={"hello"}
-                            exact
-                            component={Medicines}
-                        />
-                        <PublicRoute path="/ref" exact component={RefEx} />
-                    </Switch>
+                <PersistGate loading={null} persistor={persistor}>
 
-                    <Footer />
-                </ThemeProvider>
+                    <ThemeProvider>
+                        <Header />
+                        <Switch>
+                            <PublicRoute path="/" exact component={Home} />
+                            <PublicRoute
+                                path="/departments"
+                                exact
+                                component={Departments}
+                            />
+                            <PublicRoute path="/doctors" exact component={Doctors} />
+                            <PublicRoute path="/about" exact component={About} />
+                            <PublicRoute path="/contact" exact component={Contact} />
+                            <PrivateRoute path="/apointment" component={Apointments} />
+                            <PublicRoute
+                                path="/login"
+                                restricted={true}
+                                exact
+                                component={LoginPage}
+                            />
+                            <PublicRoute
+                                path="/medicine"
+                                data={"hello"}
+                                exact
+                                component={Medicines}
+                            />
+                            <PublicRoute path="/ref" exact component={RefEx} />
+                        </Switch>
+
+                        <Footer />
+                    </ThemeProvider>
+                </PersistGate>
             </Provider>
         </SnackbarProvider>
     );

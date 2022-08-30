@@ -2,13 +2,13 @@ import React from "react";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeProvider";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Alert from "../alert/Alert";
 import { signoutAction } from "../../redux/action/authAction";
 
 function Header(props) {
     const themeCtx = useContext(ThemeContext);
-
+    const auth = useSelector(state => state.auth)
     const dispatch = useDispatch()
 
     const handleThemeToggle = () => {
@@ -18,7 +18,6 @@ function Header(props) {
     const logoutHandler = () => {
         dispatch(signoutAction())
     }
-    console.log(themeCtx);
     return (
         <div className={`main-header`}>
             <Alert />
@@ -124,15 +123,22 @@ function Header(props) {
                         <span className="d-none d-md-inline">Make an</span>
                         Appointment
                     </NavLink>
-                    <NavLink to="/login" className="appointment-btn scrollto">
-                        <span className="d-none d-md-inline">
-                            Login/ Signup
-                        </span>
-                    </NavLink>
+                    {!auth.user ?
+                        <NavLink to="/login" className="appointment-btn scrollto">
+                            <span className="d-none d-md-inline">
+                                Login/ Signup
+                            </span>
+                        </NavLink>
+                        :
+                        <NavLink to="/login" className="appointment-btn scrollto" onClick={logoutHandler}>
+                            <span className="d-none d-md-inline">
+                                Logout
+                            </span>
+                        </NavLink>
+                    }
                     <button className="theme appointment-btn scrollto" onClick={handleThemeToggle}>
                         Toggle theme
                     </button>
-                    <button className="appointment-btn scrollto" onClick={logoutHandler}>Logout</button>
                 </div>
             </header>
         </div>

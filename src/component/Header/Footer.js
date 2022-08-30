@@ -2,9 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Footer(props) {
-  const logoutHandler = () => {
-    localStorage.removeItem("isLoggedin");
-  };
   return (
     <footer id="footer">
       <div className="container d-md-flex py-4">
@@ -44,9 +41,6 @@ function Footer(props) {
         </div>
         <Link to="/ref"> REFERENCE EX.</Link>
       </div>
-      <button onClick={logoutHandler} className="appointment-btn">
-        Logout
-      </button>
     </footer>
   );
 }
