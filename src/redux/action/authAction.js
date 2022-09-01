@@ -28,3 +28,15 @@ export const signedoutAction = () => {
         dispatch({ type: Types.SIGNED_OUT })
     }
 }
+
+export const googleSigninAction = () => {
+    return dispatch => {
+        dispatch({ type: Types.GOOGLESIGNIN_USER })
+    }
+}
+
+export const forgotPasswordAction = (data) => {
+    return dispatch => {
+        dispatch({ type: Types.FORGOT_PASSWORD, payload: data })
+    }
+}

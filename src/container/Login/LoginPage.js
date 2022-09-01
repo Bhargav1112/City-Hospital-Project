@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import * as yup from "yup";
+import { useDispatch } from 'react-redux'
 
 import ForgotPassword from "./ForgotPassword";
 import Login from "./Login";
 import SingUp from "./SignUp";
+import { googleSigninAction } from "../../redux/action/authAction";
 
 function LoginPage(props) {
   const [userType, setUserType] = useState("login");
   // const [forgotPassword, setForgotPassword] = useState(false);
+  const dispatch = useDispatch()
 
   const signUpHandler = () => {
     setUserType("signup");
@@ -20,6 +23,10 @@ function LoginPage(props) {
     // setForgotPassword(true);
     setUserType("forgotPassword");
   };
+
+  const googleSignInHandler = () => {
+    dispatch(googleSigninAction())
+  }
 
   let schemaObj;
 
@@ -85,6 +92,7 @@ function LoginPage(props) {
       {userType === "forgotPassword" && (
         <ForgotPassword schema={schema} onBack={loginHandler} />
       )}
+      <button onClick={googleSignInHandler}>Signin with Google</button>
     </section>
   );
 }

@@ -1,6 +1,7 @@
-import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { auth } from "../../firebase";
+import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, sendPasswordResetEmail } from "firebase/auth";
+import { auth, provider } from "../../firebase";
 import { history } from './history'
+import { GoogleAuthProvider } from "firebase/auth";
 
 
 export const signupApi = (data) => {
@@ -55,5 +56,43 @@ export const signOutApi = () => {
 			resolve({ payload: 'Loggedout successfully.' })
 			history.push('/')
 		}).catch(error => reject({ payload: error.code }))
+	})
+}
+
+export const googleSigninApi = () => {
+	return new Promise((resolve, reject) => {
+		signInWithPopup(auth, provider)
+			.then((result) => {
+
+				const credential = GoogleAuthProvider.credentialFromResult(result);
+				const token = credential.accessToken;
+
+				const user = result.user;
+				resolve(user)
+				history.push('/')
+
+			}).catch((error) => {
+
+				const errorCode = error.code;
+				const errorMessage = error.message;
+
+				const email = error.customData.email;
+
+				const credential = GoogleAuthProvider.credentialFromError(error);
+				reject({ payload: errorCode })
+
+			});
+	})
+}
+
+export const forgotPasswordApi = (data) => {
+	return new Promise((resolve, reject) => {
+		sendPasswordResetEmail(auth, data.email)
+			.then(res => {
+				resolve({ payload: 'Link for change password sent to your Email.' })
+			})
+			.catch(error => {
+				reject({ payload: error.code })
+			})
 	})
 }

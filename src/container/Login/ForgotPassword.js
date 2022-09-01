@@ -1,16 +1,20 @@
 import React from "react";
+import { useDispatch } from 'react-redux'
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useFormik } from "formik";
+import { forgotPasswordAction } from "../../redux/action/authAction";
 
 function ForgotPassword(props) {
+    const dispatch = useDispatch()
     const { handleBlur, handleChange, handleSubmit, values, touched, errors } = useFormik({
         initialValues: {
             email: ''
         },
         validationSchema: props.schema,
         onSubmit: (values, action) => {
-            alert(JSON.stringify(values))
+            // alert(JSON.stringify(values))
             action.resetForm()
+            dispatch(forgotPasswordAction(values))
         }
     })
 
